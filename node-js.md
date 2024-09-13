@@ -1,5 +1,5 @@
 What is Node JS?  
-Node JS is neither a language nor a framework. It is a runtime environment for executing Javascript code on the server-side. The runtime environment is responsible for memory management and convertion of high language code to machine language code. So,  
+Node JS is neither a language nor a framework. It is a runtime environment for executing Javascript code on the server-side. The runtime environment is responsible for memory management and conversion of high language code to machine language code. So,  
 Express JS is a framework that uses Node JS to execute Javascript code on the server side.
 
 What is a framework?  
@@ -102,7 +102,7 @@ or
 app.get('/orders/:orderId', ordersController.getOrderById);
 
 What is a router method? And why do we need it?  
-A router method is imported from express and by using it we can export our routes from a seperate file.  
+A router method is imported from express and by using it we can export our routes from a separate file.  
 const router = express.Router();  
 router.get('/orders/:orderId', (req,res)=>{});
 
@@ -113,6 +113,100 @@ app.use("/api", router);
 
 Differences between app.get() and router.get() methods?
 
-1. The app.get() method defines routes automatically on the application objectt while router.get() method is used to define routes on router object.
+1. The app.get() method defines routes automatically on the application object while router.get() method is used to define routes on router object.
 2. Routes defined using app.get() are automatically mounted on the root path "/" while routes defined using router.get() must be explicitly mounted using app.use() method.
 3. The app.get() is not modular and does not support reusability while router.get() method is modular and supports modularity.
+
+What is route chaining?  
+Defining multiple middlewares for a single route is called route chaining.
+
+What is route nesting?  
+Route nesting organize routes by grouping them under a common URL prefix.
+like /users/profile.
+We can achieve this behavior by mounting router methods with app.user("/users", usersRouter);
+
+What are template engines?  
+Template engines are used to combine static HTML with the data on the server side.
+
+    1. EJS (Embedded JavaScript)
+    2. Handlebars
+    3. Pug
+
+What is REST?  
+REST stands for Representational State Transfer. Meaning transfer of data in a meaningful way. It is basically set of rules for transferring the data.
+
+    1. Separation of Client and Server
+    2. Stateless (The server should not store the data)
+    3. Uniform Interface (Unique Endpoints)
+    4. Cacheable (The response can be cacheable for similar requests)
+    5. Layered Systems (MVC)
+
+What is RESTful API?  
+An API which follows rest principles.
+
+What are HTTP methods and HTTP verbs?  
+GET, POST, PUT, DELETE and PATCH are known as HTTP methods or HTTP verbs.
+
+What is the difference between PUT and PATCH method?  
+The PUT method is used to update the resource completely or create a new one if not exists but PATCH method updated the resource partially.
+
+What is Idempotence in RESTful API's?  
+Idempotence means performing an operation multiple times will have the same output.
+Idempotence methods are GET, PUT, PATCH, DELETE while POST is not idempotent.
+
+HTTP Status Codes
+1XX (Info):
+
+- 100: Continue
+
+2XX (Success):
+
+- 200: OK
+- 201: Created
+- 202: Accepted
+- 204: No Content
+
+3XX (Redirection):
+
+- 300: Multiple Choices
+
+4XX (Client Error):
+
+- 400: Bad Request
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not Found
+
+5XX (Server Error):
+
+- 500: Internal Server Error
+- 501: Not Implemented
+- 502: Bad Gateway
+- 503: Service Unavailable
+
+What are CORS?  
+CORS stands for Cross Origin Resource Sharing. Meaning you are only allowed to fetch the data from the same domain.
+
+What is Serialization and Deserialization?  
+Serialization means the conversion of the JS object to JSON format. Deserialization is the vice versa.  
+const JSONStr = JSON.stringify(obj);  
+const obj = JSON.parse(JSONStr);
+
+Types of Authentication
+
+    1. Basic Authentication (password as plain text)
+    2. API Key Authentication (API key is sent with the headers)
+    3. Token Based Authentication (JWT) (Token is sent with the headers) (Contains Header, Payload and Signature)
+    4. Multi-factor Authentication
+    5. Certificate-based Authentication
+
+Handle Errors in Node JS
+
+    1. Try Catch
+    2. Error First Callbacks
+    Passing error method as a callback to a function
+    const errorFirstCallback = (error, result) => {};
+    const asyncOperation = (callback)=>{};
+    asyncOperation(errorFirstCallback);
+    3. Using Promises
+    4. Using Async/ Await and Try/Catch
