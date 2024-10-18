@@ -210,3 +210,36 @@ Handle Errors in Node JS
     asyncOperation(errorFirstCallback);
     3. Using Promises
     4. Using Async/ Await and Try/Catch
+
+Difference between Async and Worker threads?
+Async is used for time consuming tasks like API calling while worker threads are used for high computational tasks which require processing power like data processing.
+
+What are clusters in Node JS?  
+Clusters in Node JS are used to run multiple instances of Node JS that can distribute workloads among their application threads. Every instance of Node JS is then called a worker thread. The count of worker threads depends on the number of cores in the CPU. The primary cluster works as a load balancer that assigns tasks to other worker threads.
+The algorithm it used to assign tasks to worker threads is Round Robin algorithm (1234,1234,1234)
+
+```javascript
+const cluster = require("cluster");
+const os = require("os");
+const express = require("express");
+
+const PORT = 8000;
+const totalCPUs = os.cpus().length;
+
+if (cluster.isPrimary) {
+  for (let i = 0; i < totalCPUs; i++) {
+    cluster.fork();
+  }
+} else {
+  const app = express();
+  app.get("/", (req, res) => {
+    return res.json({
+      message: `Hello from Express Server ${process.pid}`,
+    });
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Server Started At Port ${PORT}`);
+  });
+}
+```
