@@ -243,3 +243,33 @@ if (cluster.isPrimary) {
   });
 }
 ```
+
+Difference between CSR, SSR?
+In Build Process, first the source code gets build and the files gets stored on the server. Later, the data is sent to the client side.
+
+In Client-Side Rendering (CSR), an empty HTML shell is sent to the client, followed by JavaScript files. The JavaScript then dynamically generates the HTML, applies CSS, and loads content, enabling the page to render. For SEO purposes it is not good as search engines might not fully load JavaScript, seeing an empty page instead of important content.
+
+![CSR](./images/csr.png)
+
+In Server-Side Rendering the web page gets rendered on the server and the rendered web page is sent to the client-side. Every time a user request something from the server a rendered web page is sent to the client-side. As the server is really powerful as compared to client computers or mobile devices the web pages gets rendered quickly.
+
+![SSR](./images/ssr.png)
+
+How to optimize the SQL query?
+
+1. Use idexing for searching or for commonly used columns in where conditions.
+2. Try to avoid the use of SEELCT \*
+3. Try to use varchar/ nvarchar instead of char as char adds trailing spaces.
+4. Use numeric fields to store numeric values.
+5. Try to minimize the use of DISTINCT keyword.
+6. Try not to use the <> or != operator instead use the equality operator for better indexing.
+7. Use EXISTS() keyword instead of COUNT() to discover whether the table has a specific record otherwise it will scan the whole table.
+
+Queues In Node JS
+
+Queues are used to run a backend task asynchronously. They’re essential for managing operations that can’t be completed instantly.
+Mostly Message Queues and Task Queues are used.
+
+1. Task Queues are used to manage and execute background jobs within the same application, often for things like sending emails, processing images, or handling long tasks. We basically pushed the tasks onto a queue and that task will run seperately after some time intervals.
+
+2. Message Queues are used to send messages between different services or applications, allowing them to communicate without being directly connected.
