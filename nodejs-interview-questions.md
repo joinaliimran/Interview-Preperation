@@ -1,15 +1,7 @@
 Here’s a list of commonly asked interview questions that are frequently encountered in backend development interviews, particularly with a focus on Node.js, Express.js, Nest.js, and GraphQL:
 
-Node.js
-What is Node.js, and how does it work?
-
-Can you explain the single-threaded nature of Node.js and its event-driven architecture?
 What are the differences between process.nextTick() and setImmediate()?
 
-When would you use one over the other?
-How does the Node.js event loop work?
-
-Can you describe the different phases of the event loop?
 What are streams in Node.js?
 
 Explain the types of streams (Readable, Writable, Duplex, Transform) and how they work.

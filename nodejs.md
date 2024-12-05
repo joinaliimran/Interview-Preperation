@@ -273,3 +273,64 @@ Mostly Message Queues and Task Queues are used.
 1. Task Queues are used to manage and execute background jobs within the same application, often for things like sending emails, processing images, or handling long tasks. We basically pushed the tasks onto a queue and that task will run seperately after some time intervals.
 
 2. Message Queues are used to send messages between different services or applications, allowing them to communicate without being directly connected.
+
+What is Dependency Injection?
+Dependency Injection allows the application to inject a class dependencies into another class whenever the framework needed the instance. The class/ service that is injected act as a dependency to the other class. It depends on the IOC (Inversion Of Control) Principle. The control to manage the application is handed over to the Framework. The IoC container holds all injectors, which use providers to define how dependencies (classes or services) are created or retrieved. The class that wants to inject the other class will use the injection token to import the dependencies.
+
+![SSR](./images/dependency-flow.png)
+
+Types of the Dependency Injections
+
+1. Constructor Injection
+2. Propery Injection
+
+Authentication Process in MERN stack?
+In a MERN stack authentication process, users register by sending credentials (like email and password) from the React frontend to the Node.js/Express backend, where passwords are securely hashed (e.g., using bcrypt) before being stored in MongoDB. During login, credentials are verified, and upon success, the backend generates a JWT (JSON Web Token) using a secret key, which is sent back to the frontend. The frontend stores the token (preferably in an HTTP-only cookie or local storage) and includes it in subsequent requests for accessing protected resources. On the backend, middleware validates the token, ensuring authorized access to specific routes. Logout involves clearing the token on the client side.
+
+What happens when someone changes the token.
+A JWT token is created based on the header + payload + secret key. The token contains the following parts: header, payload, and signature. If someone changes the payload with their own secret key, then it will result in a new signature for the token. When this modified token is sent to the server, the server recalculates the signature using the token's header + payload and the server's own secret key. The recalculated signature is then compared with the signature in the token that was sent to the server. If the signatures do not match, the server identifies the token as tampered or invalid and rejects it.
+
+What are Http-only Cookies?
+HTTP-only cookies are cookies with the HttpOnly attribute.
+They cannot be accessed via client-side JavaScript, reducing the risk of XSS attacks where malicious scripts attempt to steal sensitive data stored in cookies.
+HTTP-only cookies are stored in the browser's cookie storage, not in localStorage or sessionStorage.
+
+When the server sets an HTTP-only cookie, it sends it in the Set-Cookie header as part of the response.
+
+```javascript
+res.cookie("token", jwtToken, {
+  httpOnly: true,
+  secure: true, // Only over HTTPS
+  sameSite: "Strict", // CSRF protection
+  maxAge: 3600000, // Cookie expiry in milliseconds
+});
+res.json({ message: "Logged in successfully" });
+```
+
+Once the cookie is set, the browser automatically attaches it to all subsequent requests.
+
+```javascript
+const token = req.cookies.token; // Extract token from HTTP-only cookie
+```
+
+What is CSRF attack?
+A CSRF (Cross-Site Request Forgery) attack happens when a hacker takes advantage of your active session with the website to perform actions as if you were doing them yourself.
+
+Use csurf or use the same-site attribute to prevent from these attack
+
+```javascript
+const csrf = require("csurf");
+const csrfProtection = csrf({ cookie: true }); // Use with cookies
+app.use(csrfProtection);
+```
+
+What is Rate Limiting?
+Rate limiting is a technique used to control the number of requests a client (e.g., IP address, user) can make to a server within a specific period. It helps prevent abuse or overuse of APIs, protects against DDoS (Distributed Denial-of-Service) attacks, and ensures fair use of resources.
+Each request is identified by a unique key (e.g., IP address, user ID). The server keeps track of the number of requests made by this key.
+
+What is a DDoS Attack?
+A DDoS (Distributed Denial-of-Service) attack is a malicious attempt to disrupt the normal operation of a server, service, or network by overwhelming it with a flood of internet traffic.
+
+What is Refresh Token?
+When a JWT is initially generated, a Refresh Token is also created and sent to the client. The client securely stores the JWT and Refresh Token—ideally, the Refresh Token in an HttpOnly cookie to protect against XSS attacks. For each subsequent request, the client includes the JWT in the request header (typically as a Bearer token) for authentication.
+If the JWT expires, the client sends the Refresh Token in a secure request (such as via an HttpOnly cookie) to the server to request a new JWT. The Refresh Token typically has a longer expiration period compared to the JWT
